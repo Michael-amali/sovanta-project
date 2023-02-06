@@ -1,3 +1,4 @@
+// quick start step 1
 sap.ui.define([
 	"sap/m/Button",
 	"sap/m/MessageToast"
