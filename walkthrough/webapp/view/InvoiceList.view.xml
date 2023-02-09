@@ -21,10 +21,12 @@ xmlns="sap.m"
          </Toolbar>
       </headerToolbar>
       <items>
-         <ObjectListItem
+      <!-- Change one of the fields (ExTendedPrice to ExtendedPrice) of the item so that we can use the debugger -->
+
+         <!-- <ObjectListItem
             title="{invoice>Quantity} x {invoice>ProductName}"
             number="{
-               parts: [{path: 'invoice>ExtendedPrice'}, {path: 'view>/currency'}],
+               parts: [{path: 'invoice>ExTendedPrice'}, {path: 'view>/currency'}],
                type: 'sap.ui.model.type.Currency',
                formatOptions: {
                   showMeasure: false
@@ -38,7 +40,25 @@ xmlns="sap.m"
 						formatter: '.formatter.statusText'
 					}"/>
 				</firstStatus>
-			</ObjectListItem>
+			</ObjectListItem> -->
+         <ObjectListItem
+            title="{invoice>Quantity} x {invoice>ProductName}"
+            number="{
+               parts: [{path: 'invoice>ExtendedPrice'}, {path: 'view>/currency'}],
+               type: 'sap.ui.model.type.Currency',
+               formatOptions: {
+                  showMeasure: false
+               }
+            }"
+            numberUnit="{view>/currency}"
+            numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }">
+            <firstStatus>
+               <ObjectStatus text="{
+                  path: 'invoice>Status',
+                  formatter: '.formatter.statusText'
+               }"/>
+            </firstStatus>
+         </ObjectListItem>
       </items>
    </List>
 </mvc:View>
