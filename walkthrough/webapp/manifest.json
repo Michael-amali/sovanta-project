@@ -39,6 +39,10 @@
           "sap.ui.core": {},
           "sap.m": {}
         }
+      },  
+      "contentDensities": {
+        "compact": true,                
+        "cozy": true
       },
       "models": {
         "i18n": {
