@@ -16,20 +16,22 @@ sap.ui.require([
 				city: "Walldorf",
 				zip: "69190",
 				country: "Germany"
-			}
+			},
+			salesAmount: 12345.6789,
+			currencyCode: "EUR"
 
 		});
 
 		// Assign the model object to the SAPUI5 core
 		sap.ui.getCore().setModel(oModel);
 
-		var oResourceModel = new ResourceModel({
+		var oResourceBundle = new ResourceModel({
 			bundleName: "sap.ui.demo.db.i18n.i18n",
 			supportedLocales: ["", "de"],
 			fallbackLocale: ""
 		});
 
-		sap.ui.getCore().setModel(oResourceModel, "i18n");
+		sap.ui.getCore().setModel(oResourceBundle, "i18n");
 
 		// Display the XML view called "App"
 		new XMLView({
