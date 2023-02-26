@@ -109,6 +109,18 @@ sap.ui.define([
 			oView.byId("peopleList").getBinding("items").filter(oFilter, FilterType.Application);
 		},
 
+		onDelete : function () {
+			var oSelected = this.byId("peopleList").getSelectedItem();
+
+			if (oSelected) {
+				oSelected.getBindingContext().delete("$auto").then(function () {
+					MessageToast.show(this._getText("deletionSuccessMessage"));
+				}.bind(this), function (oError) {
+					MessageBox.error(oError.message);
+				});
+			}
+		},
+
 		onSort : function () {
 			var oView = this.getView(),
 				aStates = [undefined, "asc", "desc"],
