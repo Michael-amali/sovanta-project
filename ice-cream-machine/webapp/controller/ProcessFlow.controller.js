@@ -5,6 +5,10 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.01.controller.ProcessFlow", {
-		formatMessage: formatMessage
+		formatMessage: formatMessage,
+
+        onNavButtonPressed: function () {
+			this.getOwnerComponent().getRouter().navTo("home");
+		}
 	});
 });
