@@ -91,44 +91,65 @@
                          </TileContent>
                      </tileContent>
                 </GenericTile>
-
-				<GenericTile
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    header="{i18n>startpageTestResultsTileTitle}"
-                    subheader="{i18n>startpageTestResultsTileSubTitle}">
-                    <tileContent>
-                        <TileContent>
-                            <content>
-                                <ImageContent src="sap-icon://temperature" />
-                            </content>
-                        </TileContent>
-                    </tileContent>
-                </GenericTile>
-
-				<SlideTile
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    tiles="{news>/News}">
-                    <GenericTile
-                        backgroundImage="{news>image}"
-                        state="{news>state}"
-                        frameType="TwoByOne">
-                        <tileContent>
-                            <TileContent
-                                footer="{
-                                    path: 'news>date',
-                                    formatter: '.formatJSONDate'
-                                }">
-                                <content>
-                                    <NewsContent
-                                        contentText="{news>content}"
-                                        subheader="{news>subheader}">
-                                    </NewsContent>
-                                </content>
-                            </TileContent>
-                        </tileContent>
-                    </GenericTile>
-                </SlideTile>
 			</layout:HorizontalLayout>
+
+			<layout:VerticalLayout class="sapUiMediumMarginTop">
+				<layout:HorizontalLayout>
+					<GenericTile
+						class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+						header="{i18n>startpageTestResultsTileTitle}"
+						subheader="{i18n>startpageTestResultsTileSubTitle}">
+						<tileContent>
+							<TileContent>
+								<content>
+									<ImageContent src="sap-icon://temperature" />
+								</content>
+							</TileContent>
+						</tileContent>
+					</GenericTile>
+					<SlideTile
+						class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+						tiles="{news>/News}">
+						<GenericTile
+							backgroundImage="{news>image}"
+							state="{news>state}"
+							frameType="TwoByOne">
+							<tileContent>
+								<TileContent
+									footer="{
+										path: 'news>date',
+										formatter: '.formatJSONDate'
+									}">
+									<content>
+										<NewsContent
+											contentText="{news>content}"
+											subheader="{news>subheader}">
+										</NewsContent>
+									</content>
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+					</SlideTile>
+				</layout:HorizontalLayout>
+			</layout:VerticalLayout>
+
+			<layout:VerticalLayout>
+				<Title
+					titleStyle="H2"
+					text="{i18n>startpageLinksGroupTitle}"
+					class="sapUiTinyMarginBegin sapUiMediumMarginTop" />
+				<layout:HorizontalLayout allowWrapping="true">
+					<GenericTile
+						header="{i18n>startpageLineTile1Title}"
+						subheader="{i18n>startpageLineTile1SubTitle}"
+						mode="LineMode"
+						class="sapUiTinyMarginBegin" />
+					<GenericTile
+						header="{i18n>startpageLineTile2Title}"
+						mode="LineMode"
+						class="sapUiTinyMarginBegin" />
+				</layout:HorizontalLayout>
+			</layout:VerticalLayout>
 		</layout:VerticalLayout>
 	</Page>
 </mvc:View>
