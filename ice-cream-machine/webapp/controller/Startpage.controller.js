@@ -8,9 +8,8 @@ sap.ui.define([
 
 	return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.01.controller.Startpage", {
 		onInit: function() {
-			// var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
-			var oModel = new JSONModel();
-			oModel.loadData("./model/data/News.json");
+			var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/01/model/data") + "/News.json";
+			var oModel = new JSONModel(sDataPath);
 			this.getView().setModel(oModel, "news");
 		},
 
