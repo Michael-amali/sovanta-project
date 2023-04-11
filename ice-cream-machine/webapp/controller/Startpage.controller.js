@@ -1,12 +1,18 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/format/NumberFormat",
-    "sap/base/strings/formatMessage"
-], function (Controller, NumberFormat, formatMessage) {
+    "sap/base/strings/formatMessage",
+	"sap/ui/model/json/JSONModel",
+], function (Controller, NumberFormat, formatMessage, JSONModel) {
 	"use strict";
 
 	return Controller.extend("sap.suite.ui.commons.demokit.tutorial.icecream.01.controller.Startpage", {
-		onInit: function () {},
+		onInit: function() {
+			// var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
+			var oModel = new JSONModel();
+			oModel.loadData("./model/data/News.json");
+			this.getView().setModel(oModel, "news");
+		},
 
 		formatMessage: formatMessage,
 
@@ -32,6 +38,12 @@ sap.ui.define([
                 decimals: 1
             });
             return oFloatFormatter.format(value);
+        }, 
+
+		formatJSONDate: function(date) {
+            var oDate = new Date(Date.parse(date));
+            return oDate.toLocaleDateString();
         }
+		
 	});
 });
