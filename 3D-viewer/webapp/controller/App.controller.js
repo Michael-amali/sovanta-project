@@ -6,84 +6,85 @@ sap.ui.define([
 ], function(Controller, JSONModel, ContentResource, MessageToast) {
 	"use strict";
 
+	// Throws a Message Toast alert on the screen
+	// when user tries to load a model but there's no URL specified
 	var handleEmptyUrl = function(view) {
 		var oBundle = view.getModel("i18n").getResourceBundle();
 		var msg = oBundle.getText("missingUrl");
 		MessageToast.show(msg);
 	};
 
-	var loadModelIntoViewer = function(viewer, remoteUrl, sourceType, localFile) {
-		// what is currently loaded in the view is destroyed
+	// checks if all URL input fields are empty or not
+	var checkIfAllInputsEmpty = function(urls) {
+		var allEmpty = true;
+		for (var i = 0; i < urls.length; i++) {
+			if (urls[i]) {
+				allEmpty = false;
+				break;
+			}
+		}
+		return allEmpty;
+	};
+
+	// loads the models from the URLs into the viewer
+	var loadModelsIntoViewer = function(viewer, urls, sourceType) {
+		// clears all the models currently loaded in the viewer
 		viewer.destroyContentResources();
 
-		var source = remoteUrl || localFile;
-
-		if (source) {
-			// content of viewer is replaced with new data
-			var contentResource = new ContentResource({
-				source: source,
-				sourceType: sourceType,
-				sourceId: "abc"
-			});
-
-			// content: chosen path. content added to the view
-			viewer.addContentResource(contentResource);
+		// iterates through all URLs
+		// and loads all models into the viewer
+		for (var i = 0; i < urls.length; i++) {
+			if (urls[i]) {
+				var contentResource = new ContentResource({
+					source: urls[i],
+					sourceType: sourceType,
+					sourceId: i.toString(),
+					name: urls[i].split("/").pop()
+				});
+				// add current model to the viewer
+				viewer.addContentResource(contentResource);
+			}
 		}
 	};
 
-	return Controller.extend("singleFile.controller.App", {
-
-	onInit: function() {
-		var sourceData = {
-			localFile: undefined,
-				remoteUrl: undefined
+	return Controller.extend("multipleFiles.controller.App", {
+		// when the controller is initialized,
+		// we declare an empty structure and
+		// we set this as model for the URLs
+		onInit: function() {
+			var sourceData = {
+				url1: "",
+				url2: "",
+				url3: ""
 			};
 			var model = new JSONModel();
 			model.setData(sourceData);
 			this.getView().setModel(model, "source");
 		},
 
-		onPressLoadRemoteModel: function(event) {
+		// onPressLoadRemoteModels handles the click event on the LOAD button
+		onPressLoadRemoteModels: function(event) {
 			var view = this.getView();
-			var sourceData = view.getModel("source").oData;
+			// set the source model to a variable
+			var sourceData = view.getModel("source").getData();
+
+			// get the current viewer control
 			var viewer = view.byId("viewer");
-			if (sourceData.remoteUrl) {
-				loadModelIntoViewer(viewer, sourceData.remoteUrl, "vds");
-			} else {
+
+			// create the list of URLs from the input fields
+			var urls = [ sourceData.url1, sourceData.url2, sourceData.url3 ];
+
+			// if all URL inputs are empty show an alert on the screen
+			// if at least one URL is specified, then take the URL list
+			// and load all existing ones into the viewer
+			if (checkIfAllInputsEmpty(urls)) {
 				handleEmptyUrl(view);
-			}
-		},
-
-		onPressLoadRemoteImage: function(event) {
-			var view = this.getView();
-			var sourceData = view.getModel("source").oData;
-			var viewer = view.byId("viewer");
-			if (sourceData.remoteUrl) {
-				loadModelIntoViewer(viewer, sourceData.remoteUrl, "jpg");
 			} else {
-				handleEmptyUrl(view);
-			}
-		},
-
-		onPressLoadSampleFile: function(event) {
-			var view = this.getView();
-			var viewer = view.byId("viewer");
-			loadModelIntoViewer(viewer, "models/cylinderTestModel.vds", "vds");
-		},
-
-		onChangeFileUploader: function(event) {
-			var view = this.getView();
-			var viewer = view.byId("viewer");
-			var localFile = event.getParameter("files")[0];
-			// if user selects a local file
-			if (localFile) {
-				var fileName = localFile.name;
-				var index = fileName.lastIndexOf(".");
-				if (index >= 0 && index < fileName.length - 1) {
-					var sourceType = fileName.substr(index + 1);
-					loadModelIntoViewer(viewer, null, sourceType, localFile);
-				}
+				loadModelsIntoViewer(viewer, urls, "vds");
 			}
 		}
 	});
 });
+
+
+// Example of the Remote Model URL is "models/cylinderTestModel.vds"
