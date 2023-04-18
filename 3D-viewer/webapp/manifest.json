@@ -2,7 +2,7 @@
 	"_version": "1.21.0",
 	"sap.app": {
 		"_version": "1.1.0",
-		"id": "standaloneViewport",
+		"id": "viewportScenetree",
 		"type": "application",
 		"i18n": {
 			"bundleUrl": "i18n/i18n.properties",
@@ -32,7 +32,7 @@
 	"sap.ui5": {
 		"_version": "1.1.0",
 		"rootView": {
-			"viewName": "standaloneViewport.view.App",
+			"viewName": "viewportScenetree.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "app"
@@ -48,7 +48,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "standaloneViewport.i18n.i18n",
+					"bundleName": "viewportScenetree.i18n.i18n",
 					"supportedLocales": [
 						""
 					],
@@ -57,4 +57,5 @@
 			}
 		}
 	}
+
 }
